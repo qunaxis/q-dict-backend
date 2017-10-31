@@ -40,11 +40,11 @@ app.set('port', PORT )
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }))
+app.use(cors({ origin: true }))
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressSession({ secret:'keyboard cat', resave: true, saveUninitialized: true }))
-app.use(cors({ origin: true }))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -62,7 +62,7 @@ passport.use(new VKontakteStrategy(
   {
     clientID:     VKONTAKTE_APP_ID, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
     clientSecret: VKONTAKTE_APP_SECRET,
-    callbackURL:  "//q-dict-server.herokuapp.com/auth/vk/callback"
+    callbackURL:  "https://q-dict-server.herokuapp.com/auth/vk/callback"
   },
   function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
 
